@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 import cvlib as cv
 from PIL import Image
+import subprocess
 
 app = Flask(__name__)
 
@@ -62,6 +63,15 @@ def detect():
     return my_string, 200
 
 
+@app.route('/api/detect2', methods=['GET'])
+def detect_two():
+    # Run the 'ls' command to list the files in the current directory
+    result = subprocess.run(['python yolo_opencv.py --image vol1/images/car.jpg --config yolov3.cfg --weights yolov3.weights --classes yolov3.txt'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    # Print the output of the command
+    print(result.stdout.decode('utf-8'))
+  
+    return result.stdout.decode('utf-8'), 200
 
 
 
