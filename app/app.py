@@ -39,14 +39,19 @@ def upload():
 
     # Save the uploaded file
     filename = images.save(request.files['image'])
+    img = Image.open(filename)
+    img = np.array(img)
+
+    results = cv.detect_common_objects(img, model='yolov3')
+    my_string = str(results)
 
     # Return the filename of the saved file
-    return filename, 200
+    return my_string, 200
 
 
 @app.route('/api/detect', methods=['GET'])
 def detect():
-    
+
     img = Image.open(filename)
     img = np.array(img)
 
