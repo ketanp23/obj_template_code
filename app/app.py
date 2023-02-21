@@ -52,7 +52,7 @@ def upload():
 @app.route('/api/detect', methods=['GET'])
 def detect():
 
-    img = Image.open('/vol1/images/car.jpg')
+    img = Image.open('vol1/images/car.jpg')
     img = np.array(img)
 
     results = cv.detect_common_objects(img, model='yolov3')
