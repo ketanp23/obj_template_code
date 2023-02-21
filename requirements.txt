@@ -11,4 +11,4 @@ flask-reuploaded==1.3.0
 opencv-python
 numpy
 cvlib
-PIL
+PIL==1.1.6
