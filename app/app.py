@@ -18,6 +18,7 @@ images = UploadSet('images', IMAGES)
 # Configure the Flask-Uploads extension
 configure_uploads(app, (images,))
 
+filename = ''
 
 
 @app.route('/api/test', methods=['GET'])
@@ -38,6 +39,14 @@ def upload():
 
     # Save the uploaded file
     filename = images.save(request.files['image'])
+
+    # Return the filename of the saved file
+    return filename, 200
+
+
+@app.route('/api/detect', methods=['GET'])
+def detect():
+    
     img = Image.open(filename)
     img = np.array(img)
 
@@ -46,6 +55,9 @@ def upload():
 
     # Return the filename of the saved file
     return my_string, 200
+
+
+
 
 
 
