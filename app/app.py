@@ -1,6 +1,10 @@
 from flask import Flask, request, Response 
 import jsonpickle
 from flask_uploads import UploadSet, IMAGES, configure_uploads
+import cv2
+import numpy as np
+import cvlib as cv
+from PIL import Image
 
 app = Flask(__name__)
 
@@ -34,9 +38,14 @@ def upload():
 
     # Save the uploaded file
     filename = images.save(request.files['image'])
+    img = Image.open(filename)
+    img = np.array(img)
+
+    results = cv.detect_common_objects(img, model='yolov3')
+    my_string = str(results)
 
     # Return the filename of the saved file
-    return filename, 200
+    return my_string, 200
 
 
 
